@@ -60,7 +60,7 @@ alias d=todone
 
 or this to your `config.fish`:
 
-```fish
+```csh
 set -x TODOFILE ~/Dropbox/todo/todo
 set -x TODOHISTORY ~/Dropbox/todo/todo-history
 set -x TODONEFILE ~/Dropbox/todo/todone
