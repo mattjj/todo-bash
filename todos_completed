@@ -25,7 +25,7 @@ else
         touch -d "$(echo $l | cut -d";" -f2)" $testfile
         if [ $testfile -nt $cutofffile ]
         then
-            echo "$l" | cut -d";" -f1 | sed 's/^- /√/'
+            echo "$l" | cut -d";" -f1 | sed 's/^- /√ /'
         fi
     done)
 
