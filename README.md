@@ -53,7 +53,7 @@ or `.zshrc`:
 ```bash
 export TODOFILE=~/Dropbox/todo/todo
 export TODONEFILE=~/Dropbox/todo/todone
-export TODOHISTORY=~/Dropbox/todo/.todo-history
+export TODOHISTORY=~/Dropbox/todo/todo-history
 alias t=todo
 alias d=todone
 ```
