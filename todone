@@ -35,7 +35,6 @@ else
     fi
 
     echo "- $match; $(date)" | to_todo_history_file
-    echo "$match" | to_todo_done_file
     sed -i "${line_number}d" $TODOFILE
 
     show_todo

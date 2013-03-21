@@ -52,7 +52,6 @@ or `.zshrc`:
 
 ```bash
 export TODOFILE=~/Dropbox/todo/todo
-export TODONEFILE=~/Dropbox/todo/todone
 export TODOHISTORY=~/Dropbox/todo/todo-history
 alias t=todo
 alias d=todone
@@ -63,7 +62,6 @@ or this to your `config.fish`:
 ```csh
 set -x TODOFILE ~/Dropbox/todo/todo
 set -x TODOHISTORY ~/Dropbox/todo/todo-history
-set -x TODONEFILE ~/Dropbox/todo/todone
 alias t=todo
 alias d=todone
 ```
