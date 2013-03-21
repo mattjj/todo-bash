@@ -12,6 +12,7 @@ then
     echo_in_red "$(basename $0) needs an argument"
     exit 1
 else
+    touch "$TODOFILE"
     if [[ "$*" =~ ^[0-9]+$ ]]
     then
         match=$(sed -n "${1}p" $TODOFILE)

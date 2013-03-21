@@ -8,9 +8,10 @@ then
     echo_in_red "environment variable TODOFILE not set"
     exit 1
 else
+    touch "$TODOFILE"
     if [ $# -ne 0 ]
     then
-        echo "$*" >> $TODOFILE
+        echo "$*" >> "$TODOFILE"
         echo "+ $*; $(date)" | to_todo_history_file
     fi
     show_todo
