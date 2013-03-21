@@ -12,7 +12,7 @@ if [ -z "$TODOFILE" ]
 then
     echo_in_red "environment variable TODOFILE not set"
     exit 1
-elif [ $# -eq 0 -o $1 = '--help' ]
+elif [ $# -eq 0 -o "$1" = '--help' ]
 then
     usage
     exit 0
