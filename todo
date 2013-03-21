@@ -1,5 +1,8 @@
 #!/bin/bash
 
+codedir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PATH="$codedir/internals/:$PATH"
+
 if [ -z "$TODOFILE" ]
 then
     echo_in_red "environment variable TODOFILE not set"
