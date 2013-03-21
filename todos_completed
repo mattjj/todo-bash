@@ -9,7 +9,7 @@ if [ -z "$TODOHISTORY" -o ! -f "$TODOHISTORY" ]
 then
     echo_in_red "${0##*/} requires a TODOHISTORY file"
     exit 1
-elif [ $# -gt 1 -o \( $# -eq 1 -a $1 = '--help' \) ]
+elif [ $# -gt 1 -o \( $# -eq 1 -a "$1" = '--help' \) ]
 then
     usage
     exit 0
