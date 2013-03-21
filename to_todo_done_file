@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -n "$TODONEFILE" ]
+then
+    cat >> $TODONEFILE # is this 'cat' avoidable? exec doesn't work...
+fi

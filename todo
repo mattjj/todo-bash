@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -z "$TODOFILE" ]
+then
+    echo_in_red "environment variable TODOFILE not set"
+    exit 1
+else
+    if [ $# -ne 0 ]
+    then
+        echo "$*" >> $TODOFILE
+        echo "+ $*; $(date)" | to_todo_history_file
+    fi
+    show_todo
+fi

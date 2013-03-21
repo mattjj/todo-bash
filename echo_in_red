@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo -en "\033[1;31m"
+echo "$@"
+echo -en "\033[m"

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -n "$TODOHISTORY" ]
+then
+    cat >> $TODOHISTORY # is this 'cat' avoidable? exec doesn't work...
+fi

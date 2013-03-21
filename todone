@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+if [ -z "$TODOFILE" ]
+then
+    echo_in_red "environment variable TODOFILE not set"
+    exit 1
+elif [ $# -eq 0 ]
+then
+    echo_in_red "$(basename $0) needs an argument"
+    exit 1
+else
+    if [[ "$*" =~ ^[0-9]+$ ]]
+    then
+        match=$(sed -n "${1}p" $TODOFILE)
+        line_number=${1}
+    else
+        match=$(grep --color=never -i "$*" $TODOFILE)
+        num_matches=$(echo "$match" | wc -l)
+        if [ $num_matches -eq 0 ]
+        then
+            echo_in_red "!! no matches !!"
+            exit 1
+        elif [ $num_matches -gt 1 ]
+        then
+            echo_in_red "!! multiple matches !!"
+            show_todo | grep --color=always -i "$*"
+            exit 1
+        else
+            line_number=$(grep --color=never -ni "$*" $TODOFILE | cut -d: -f1)
+        fi
+    fi
+
+    echo "- $match; $(date)" | to_todo_history_file
+    echo "$match" | to_todo_done_file
+    sed -i "${line_number}d" $TODOFILE
+
+    show_todo
+
+fi

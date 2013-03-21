@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$TODOFILE" ]
+then
+    echo_in_red "environment variable TODOFILE not set"
+    exit 1
+else
+    awk '{print NR". " $0}' <$TODOFILE
+fi
