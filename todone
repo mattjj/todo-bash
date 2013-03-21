@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-codedir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+codedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PATH="$codedir/internals/:$PATH"
 
 if [ -z "$TODOFILE" ]
@@ -38,5 +38,4 @@ else
     sed -i "${line_number}d" $TODOFILE
 
     show_todo
-
 fi
