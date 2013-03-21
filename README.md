@@ -1,5 +1,7 @@
 Two tiny programs, `todo` and `todone`. I like to alias them to `t` and `d`.
 
+One bonus program, `todos_completed`, to see how much you've accomplished!
+
 # Usage #
 
 Here's an example usage with the aliases:
@@ -32,6 +34,9 @@ $ tail -5 $TODOHISTORY
 + brush the cat; Wed Mar 20 23:49:54 EDT 2013
 - brush the cat; Wed Mar 20 23:50:37 EDT 2013
 - feed the plants; Wed Mar 20 23:50:39 EDT 2013
+$ todos_completed -1hour
+√ brush the cat
+√ feed the plants
 ```
 
 The lists are just plain text files, so it's easy to open them up and edit them

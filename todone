@@ -3,14 +3,19 @@
 codedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PATH="$codedir/internals/:$PATH"
 
+usage()
+{
+    echo "usage: ${0##*/} number-or-pattern"
+}
+
 if [ -z "$TODOFILE" ]
 then
     echo_in_red "environment variable TODOFILE not set"
     exit 1
-elif [ $# -eq 0 ]
+elif [ $# -eq 0 -o $1 = '--help' ]
 then
-    echo_in_red "$(basename $0) needs an argument"
-    exit 1
+    usage
+    exit 0
 else
     touch "$TODOFILE"
     if [[ "$*" =~ ^[0-9]+$ ]]

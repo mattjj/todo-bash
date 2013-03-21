@@ -1,33 +1,38 @@
 #!/bin/bash
 
+usage()
+{
+    echo "usage: ${0##*/} [since-datestring]"
+}
+
 if [ -z "$TODOHISTORY" -o ! -f "$TODOHISTORY" ]
 then
-    echo_in_red "$(basename $0) requires a TODOHISTORY file"
+    echo_in_red "${0##*/} requires a TODOHISTORY file"
     exit 1
-elif [ $# -gt 1 ]
+elif [ $# -gt 1 -o \( $# -eq 1 -a $1 = '--help' \) ]
 then
-    echo_in_red "$(basename $0) takes 0 or 1 arguments"
-    exit 1
+    usage
+    exit 0
 else
     if [ $# -eq 1 ]
     then
-        timestr=$1
+        since=$1
     else
-        timestr='-1day'
+        since='-1day'
     fi
 
-    cutofffile=$(mktemp)
+    sincefile=$(mktemp)
     testfile=$(mktemp)
 
-    touch -d "$timestr" $cutofffile
+    touch -d "$since" $sincefile
     (IFS=$'\n'; for l in $(tail -n 25 "$TODOHISTORY" | grep '^-')
     do
         touch -d "$(echo $l | cut -d";" -f2)" $testfile
-        if [ $testfile -nt $cutofffile ]
+        if [ $testfile -nt $sincefile ]
         then
             echo "$l" | cut -d";" -f1 | sed 's/^- /√ /'
         fi
     done)
 
-    rm -f $cutofffile $testfile
+    rm -f $sincefile $testfile
 fi
