@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ -z "$TODOHISTORY" -o ! -f "$TODOHISTORY" ]
+then
+    echo_in_red "$(basename $0) requires a TODOHISTORY file"
+    exit 1
+elif [ $# -gt 1 ]
+then
+    echo_in_red "$(basename $0) takes 0 or 1 arguments"
+    exit 1
+else
+    if [ $# -eq 1 ]
+    then
+        timestr=$1
+    else
+        timestr='-1day'
+    fi
+
+    cutofffile=$(mktemp)
+    testfile=$(mktemp)
+
+    touch -d "$timestr" $cutofffile
+    (IFS=$'\n'; for l in $(tail -n 25 "$TODOHISTORY" | grep '^-')
+    do
+        touch -d "$(echo $l | cut -d";" -f2)" $testfile
+        if [ $testfile -nt $cutofffile ]
+        then
+            echo "$l" | cut -d";" -f1 | sed 's/^- /√/'
+        fi
+    done)
+
+    rm -f $cutofffile $testfile
+fi
