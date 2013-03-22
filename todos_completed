@@ -1,12 +1,13 @@
 #!/bin/bash -e
 
 usage() {
+command=${0##*/}
 cat <<EOF
-usage: ${0##*/} [since-datestring]
+usage: $command [since-datestring]
 Examples:
-    ${0##*/}
-    ${0##*/} -1day
-    ${0##*/} -6hours
+    $command
+    $command -1day
+    $command -6hours
 EOF
 }
 

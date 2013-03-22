@@ -5,11 +5,12 @@ PATH="$codedir/internals/:$PATH"
 
 usage()
 {
+command=${0##*/}
 cat <<EOF
-usage: ${0##*/} number-or-pattern
+usage: $command [a] [task] [name]
 Examples:
-    ${0##*/}
-    ${0##*/} feed the cat
+    $command
+    $command feed the cat
 EOF
 }
 
