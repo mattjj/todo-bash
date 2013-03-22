@@ -1,20 +1,25 @@
 #!/bin/bash -e
 
-usage()
-{
-    echo "usage: ${0##*/} [since-datestring]"
+usage() {
+cat <<EOF
+usage: ${0##*/} [since-datestring]
+Examples:
+    ${0##*/}
+    ${0##*/} -1day
+    ${0##*/} -6hours
+EOF
 }
 
-if [ -z "$TODOHISTORY" -o ! -f "$TODOHISTORY" ]
+if [[ -z "$TODOHISTORY" || ! -f "$TODOHISTORY" ]]
 then
     echo_in_red "${0##*/} requires a TODOHISTORY file"
     exit 1
-elif [ $# -gt 1 -o \( $# -eq 1 -a "$1" = '--help' \) ]
+elif [[ $# -gt 1 || "$1" = '--help' ]]
 then
     usage
     exit 0
 else
-    if [ $# -eq 1 ]
+    if [[ $# -eq 1 ]]
     then
         since=$1
     else
@@ -28,7 +33,7 @@ else
     (IFS=$'\n'; for l in $(tail -n 25 "$TODOHISTORY" | grep '^-')
     do
         touch -d "$(echo $l | cut -d";" -f2)" $testfile
-        if [ $testfile -nt $sincefile ]
+        if [[ $testfile -nt $sincefile ]]
         then
             echo "$l" | cut -d";" -f1 | sed 's/^- /√ /'
         fi

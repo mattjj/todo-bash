@@ -3,16 +3,38 @@
 codedir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PATH="$codedir/internals/:$PATH"
 
-if [ -z "$TODOFILE" ]
+usage()
+{
+cat <<EOF
+usage: ${0##*/} number-or-pattern
+Examples:
+    ${0##*/}
+    ${0##*/} feed the cat
+EOF
+}
+
+if [[ -z "$TODOFILE" ]]
 then
-    echo_in_red "environment variable TODOFILE not set"
+    echo_in_red "environment variable TODOFILE must be set"
     exit 1
+elif [[ $# -eq 1 && ( "$1" = '-h' || "$1" = '--help' ) ]]
+then
+    usage
+    exit 0
 else
     touch "$TODOFILE"
-    if [ $# -ne 0 ]
+    if [[ $# -eq 0 ]]
     then
-        echo "$*" >> "$TODOFILE"
-        echo "+ $*; $(date)" | to_todo_history_file
+        show_todo
+    else
+        if grep "$*" "$TODOFILE"
+        then
+            echo_in_red '!! exact duplicate !!'
+            show_todo | grep --color=always "$*"
+        else
+            echo "$*" >> "$TODOFILE"
+            echo "+ $*; $(date)" | to_todo_history_file
+            show_todo
+        fi
     fi
-    show_todo
 fi

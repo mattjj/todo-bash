@@ -5,14 +5,19 @@ PATH="$codedir/internals/:$PATH"
 
 usage()
 {
-    echo "usage: ${0##*/} number-or-pattern"
+cat <<EOF
+usage: ${0##*/} number-or-pattern
+Examples:
+    ${0##*/} 3
+    ${0##*/} do math
+EOF
 }
 
 if [ -z "$TODOFILE" ]
 then
     echo_in_red "environment variable TODOFILE not set"
     exit 1
-elif [ $# -eq 0 -o "$1" = '--help' ]
+elif [[ $# -eq 0 || "$1" = '--help' ]]
 then
     usage
     exit 0
@@ -23,19 +28,19 @@ else
         match=$(sed -n "${1}p" $TODOFILE)
         line_number=${1}
     else
-        match=$(grep --color=never -i "$*" $TODOFILE)
+        match=$(grep --color=never "$*" $TODOFILE)
         num_matches=$(echo "$match" | wc -l)
-        if [ $num_matches -eq 0 ]
+        if [[ $num_matches -eq 0 ]]
         then
             echo_in_red "!! no matches !!"
             exit 1
-        elif [ $num_matches -gt 1 ]
+        elif [[ $num_matches -gt 1 ]]
         then
             echo_in_red "!! multiple matches !!"
-            show_todo | grep --color=always -i "$*"
+            show_todo | grep --color=always "$*"
             exit 1
         else
-            line_number=$(grep --color=never -ni "$*" $TODOFILE | cut -d: -f1)
+            line_number=$(grep --color=never -n "$*" $TODOFILE | cut -d: -f1)
         fi
     fi
 
