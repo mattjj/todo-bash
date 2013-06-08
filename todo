@@ -28,7 +28,7 @@ else
     then
         show_todo
     else
-        if grep "$*" "$TODOFILE"
+        if grep "$*$" "$TODOFILE"
         then
             echo_in_red '!! exact duplicate !!'
             show_todo | grep --color=always "$*"
