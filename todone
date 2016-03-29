@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-codedir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+codedir="$(cd "$(dirname $(readlink "${BASH_SOURCE[0]}"))" && pwd)"
 PATH="$codedir/internals/:$PATH"
 
 usage()
